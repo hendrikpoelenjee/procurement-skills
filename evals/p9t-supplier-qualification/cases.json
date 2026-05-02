@@ -1,0 +1,99 @@
+{
+  "skill": "p9t-supplier-qualification",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "qualification_happy",
+      "type": "happy_path",
+      "title": "15-candidate longlist with clear pass/fail criteria and financial thresholds",
+      "inputs": {
+        "longlist_size": 15,
+        "qualification_criteria": {
+          "mandatory_disqualifiers": [
+            "Insolvency or administration in last 3 years",
+            "No ISO 14001 certification",
+            "Annual revenue below €10M"
+          ],
+          "weighted_criteria": [
+            {"criterion": "FM sector experience (years)", "weight": 30},
+            {"criterion": "Reference clients comparable in size", "weight": 25},
+            {"criterion": "QHSE performance record", "weight": 25},
+            {"criterion": "Financial stability score", "weight": 20}
+          ]
+        },
+        "target_shortlist_size": 5,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "shortlist contains 4-6 candidates with individual pass rationale",
+        "disqualification reasons documented per disqualified candidate",
+        "borderline decisions noted separately for human review",
+        "data_gaps is empty or contains only non-blocking items",
+        "assumptions does not present inferred evidence as confirmed"
+      ]
+    },
+    {
+      "id": "qualification_thin",
+      "type": "thin_data",
+      "title": "Candidate list provided but no qualification criteria defined",
+      "inputs": {
+        "longlist": ["Supplier A", "Supplier B", "Supplier C", "Supplier D", "Supplier E"],
+        "instruction": "Screen these suppliers and give us a shortlist."
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA",
+        "data_gaps includes: qualification criteria not defined, pass/fail thresholds not provided",
+        "skill does not apply default or assumed criteria without user confirmation",
+        "open_questions contains at least: mandatory disqualifiers, weighted criteria, target shortlist size"
+      ]
+    },
+    {
+      "id": "qualification_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Two stakeholders provide conflicting minimum revenue thresholds",
+      "inputs": {
+        "longlist_size": 12,
+        "qualification_criteria_source_a": {
+          "source": "Finance Director",
+          "minimum_revenue": "€10M annual revenue required"
+        },
+        "qualification_criteria_source_b": {
+          "source": "Head of Procurement",
+          "minimum_revenue": "€5M annual revenue is sufficient for this category"
+        },
+        "other_criteria": ["ISO 14001 required", "minimum 5 years FM experience"]
+      },
+      "pass_signals": [
+        "conflict between €10M (Finance Director) and €5M (Head of Procurement) thresholds is explicitly surfaced",
+        "skill does not silently apply one threshold or average the two",
+        "open_questions contains: which revenue threshold is authoritative?",
+        "confidence_level is MEDIUM or LOW while contradiction is unresolved",
+        "no shortlist issued until conflict is resolved — or issued as provisional with conflict flagged"
+      ]
+    },
+    {
+      "id": "qualification_high_risk",
+      "type": "high_risk",
+      "title": "All candidates except the incumbent fail qualification — concentration risk",
+      "inputs": {
+        "longlist_size": 8,
+        "qualification_results": {
+          "passes": ["IncumbentCo"],
+          "fails": ["Supplier B", "Supplier C", "Supplier D", "Supplier E", "Supplier F", "Supplier G", "Supplier H"],
+          "fail_reasons": "Six fail on revenue threshold; one fails on certification"
+        },
+        "incumbent_tenure_years": 9
+      },
+      "pass_signals": [
+        "risk_flags contains: only incumbent passes — no competitive tension possible",
+        "escalation_required is true",
+        "skill does not recommend proceeding to RFx with a single-candidate shortlist without escalation",
+        "open_questions contains: review qualification criteria?, consider emergency market expansion?",
+        "confidence_level is MEDIUM — shortlist result is technically valid but commercially dangerous"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "status": "completed",
+  "summary": "Strategic competitive_event workflow planned with 4 approval gates. Halted at G1_scope_approval. No specialist skills executed until scope is confirmed.",
+  "artifacts": [
+    "artifacts/workflow-plan.json",
+    "artifacts/workflow-routing.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Path type inferred as competitive_event based on replacement language in the brief",
+    "Spend estimate provided is representative of total in-scope category spend"
+  ],
+  "data_gaps": [
+    "Incumbent contract expiry date not confirmed — timeline pressure score may be understated",
+    "Stakeholder sign-off authority not identified — G1 gate owner is unknown"
+  ],
+  "risk_flags": [
+    "Workflow plan is provisional — must not proceed to any specialist skill before G1_scope_approval is confirmed",
+    "High stakeholder count may delay G1 approval beyond the implied timeline"
+  ],
+  "open_questions": [
+    "Who holds G1_scope_approval authority?",
+    "Is the stated timeline compatible with a full strategic competitive event including all four gates?"
+  ],
+  "next_action": "Obtain G1_scope_approval before executing any specialist sourcing skills.",
+  "confidence_level": "MEDIUM",
+  "brief_id": "brief-sample-001",
+  "complexity_assessment": {
+    "complexity": "strategic",
+    "score_total": 16,
+    "dimension_scores": {
+      "spend_scale": 2,
+      "supply_risk": 2,
+      "switching_risk": 3,
+      "specification_complexity": 2,
+      "stakeholder_complexity": 2,
+      "timeline_pressure": 1,
+      "incumbent_entrenchment": 2,
+      "criticality": 2
+    },
+    "overrides": []
+  },
+  "path_type": "competitive_event",
+  "selected_skills": ["p9t-intake-and-brief"],
+  "required_gates": [
+    "G1_scope_approval",
+    "G2_market_and_longlist_approval",
+    "G3_rfx_and_evaluation_approval",
+    "G4_recommendation_approval"
+  ],
+  "gates_in_current_plan": ["G1_scope_approval"],
+  "next_required_gate": "G1_scope_approval",
+  "approval_state": { "approved_gates": [] },
+  "stopped_after_sequence": 1,
+  "stages": [
+    {
+      "sequence_number": 1,
+      "skill_id": "p9t-intake-and-brief",
+      "objective": "Normalise the request into a sourcing brief with explicit objectives, scope, and constraints.",
+      "why_selected": "Selected as Wave 1 entry point for strategic competitive_event workflow.",
+      "required_inputs": ["business_need", "category_or_scope", "timeline", "constraints"],
+      "expected_artifacts": ["artifacts/sourcing-brief.json", "artifacts/summary.md", "artifacts/open-questions.json"],
+      "exit_criteria": "Brief is complete enough for complexity scoring and path selection.",
+      "depends_on": [],
+      "owner": "agent",
+      "approval_gate_after": "G1_scope_approval"
+    }
+  ],
+  "artifact_map": {
+    "workflow_plan": "artifacts/workflow-plan.json",
+    "workflow_routing": "artifacts/workflow-routing.json",
+    "summary": "artifacts/summary.md",
+    "open_questions": "artifacts/open-questions.json"
+  },
+  "gate_definitions": {
+    "G1_scope_approval": "Approve scope, objectives, and path before deeper work.",
+    "G2_market_and_longlist_approval": "Approve market view and supplier set before outreach or qualification.",
+    "G3_rfx_and_evaluation_approval": "Approve RFx design and evaluation method before formal competition.",
+    "G4_recommendation_approval": "Approve recommendation before commitment or implementation."
+  }
+}

@@ -1,0 +1,100 @@
+{
+  "skill": "p9t-award-recommendation",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "award_happy",
+      "type": "happy_path",
+      "title": "Three evaluated bidders — clear winner by margin, all upstream stages complete",
+      "inputs": {
+        "category": "Integrated facilities management",
+        "evaluation_scores": {
+          "SupplierA": {"total": 82, "commercial": 85, "technical": 78, "risk": 83},
+          "SupplierB": {"total": 74, "commercial": 71, "technical": 78, "risk": 73},
+          "SupplierC": {"total": 68, "commercial": 72, "technical": 64, "risk": 68}
+        },
+        "evaluation_methodology_documented": true,
+        "upstream_stages_complete": ["intake", "market_scan", "qualification", "rfx", "evaluation"],
+        "approval_authority": "CFO",
+        "approval_required_before_communication": true,
+        "negotiated_value_eur": 2160000,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH",
+        "SupplierA identified as recommended — margin of 8 points over SupplierB is material",
+        "reasoning_trace explains score differences by dimension",
+        "recommendation explicitly states it does not constitute a legal commitment",
+        "data_gaps is empty",
+        "approval gate G4 flagged as required before external communication"
+      ]
+    },
+    {
+      "id": "award_thin",
+      "type": "thin_data",
+      "title": "Scores provided but evaluation methodology not documented",
+      "inputs": {
+        "evaluation_scores": {
+          "SupplierA": 82,
+          "SupplierB": 74
+        },
+        "instruction": "Recommend the winner based on these scores.",
+        "evaluation_methodology_documented": false,
+        "upstream_stages_complete": []
+      },
+      "pass_signals": [
+        "status is blocked or confidence_level is LOW",
+        "data_gaps includes: evaluation methodology not documented — scores cannot be verified",
+        "skill does not issue a recommendation based on scores alone without methodology audit trail",
+        "open_questions contains: what criteria and weights produced these scores?, which upstream stages are complete?"
+      ]
+    },
+    {
+      "id": "award_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Technical score favours Supplier A, commercial score favours Supplier B — within margin of error",
+      "inputs": {
+        "category": "IT managed services",
+        "evaluation_scores": {
+          "SupplierA": {"total": 76, "commercial": 68, "technical": 84},
+          "SupplierB": {"total": 75, "commercial": 83, "technical": 67}
+        },
+        "score_gap": 1,
+        "evaluation_methodology_documented": true,
+        "stakeholder_preference": "Finance prefers SupplierB (cost); IT prefers SupplierA (technical fit)"
+      },
+      "pass_signals": [
+        "conflict between commercial and technical scores and the 1-point overall margin is explicitly surfaced",
+        "skill does not present SupplierA as a clear winner when the margin is within rounding error",
+        "risk_flags contains: scores within margin of error — tie-break requires explicit stakeholder decision",
+        "open_questions contains: which dimension takes precedence in a tie?, who holds final authority?",
+        "confidence_level is MEDIUM — recommendation is contingent on stakeholder tie-break decision",
+        "escalation_required is true"
+      ]
+    },
+    {
+      "id": "award_high_risk",
+      "type": "high_risk",
+      "title": "Recommended award to supplier with unresolved financial risk flag from evaluation",
+      "inputs": {
+        "category": "Facilities management",
+        "recommended_supplier": "SupplierA",
+        "evaluation_scores": {
+          "SupplierA": {"total": 80, "financial_risk_flag": true, "financial_risk_detail": "Net loss reported in last 2 fiscal years; debt ratio above sector benchmark"}
+        },
+        "runner_up": {"SupplierB": {"total": 74, "financial_risk_flag": false}},
+        "approval_authority": "CFO",
+        "instruction": "SupplierA won the evaluation — issue the recommendation."
+      },
+      "pass_signals": [
+        "risk_flags contains: recommended supplier has unresolved financial risk flag",
+        "escalation_required is true",
+        "skill does not issue a clean recommendation without surfacing the financial risk",
+        "reasoning_trace documents the risk and notes it must be reviewed before G4 approval",
+        "open_questions contains: financial risk assessment complete?, CFO aware of financial risk before approving?",
+        "confidence_level is MEDIUM — recommendation is valid but conditional on risk resolution"
+      ]
+    }
+  ]
+}

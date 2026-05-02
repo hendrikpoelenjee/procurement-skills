@@ -1,0 +1,138 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required",
+    "handoff_summary"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = multi-source, cross-validated; MEDIUM = single source; LOW = sparse, must not drive RFx design without further research"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of search methods used, sources consulted, and how candidate fit was assessed."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when fewer than 3 candidates meet the brief, all candidates share a parent group, or must-have criteria eliminate the full available market."
+    },
+    "source_quality": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["recency", "coverage", "bias_risk"],
+      "properties": {
+        "recency": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "description": "How current the sources are relative to the decision window."
+        },
+        "coverage": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "description": "Breadth across supplier segments and geographies sampled."
+        },
+        "bias_risk": {
+          "type": "string",
+          "enum": ["LOW", "MEDIUM", "HIGH"],
+          "description": "Risk that evidence is dominated by incumbent or one-sided sources."
+        }
+      },
+      "description": "Structured appraisal of evidence quality for research outputs."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "candidates": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": { "type": "string" },
+              "name": { "type": "string" },
+              "geography": { "type": "array", "items": { "type": "string" } },
+              "category_fit": { "type": "string" },
+              "certifications": { "type": "array", "items": { "type": "object" } },
+              "size_indicator": { "type": "string" },
+              "must_haves_met": { "type": "object" },
+              "evidence_sources": { "type": "array", "items": { "type": "string" } },
+              "confidence": {
+                "type": "string",
+                "enum": ["HIGH", "MEDIUM", "LOW"]
+              },
+              "flags": { "type": "array", "items": { "type": "string" } },
+              "notes": { "type": "string" },
+              "web_verified": { "type": "boolean" },
+              "verification_notes": { "type": ["string", "null"] }
+            }
+          }
+        },
+        "total_candidates": { "type": "integer" },
+        "excluded_count": { "type": "integer" },
+        "exclusion_reasons": { "type": "array", "items": { "type": "string" } },
+        "web_verification_available": { "type": "boolean" }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "description": "Distilled inputs for p9t-rfx-pack-builder. Contains only what that skill needs — not the full output.",
+      "properties": {
+        "for_skill": { "type": "string" },
+        "key_inputs": {
+          "type": "object",
+          "properties": {
+            "shortlisted_suppliers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": { "type": "string" },
+                  "contact": { "type": "string" },
+                  "certifications": { "type": "array", "items": { "type": "string" } },
+                  "lead_time": { "type": "string" }
+                }
+              }
+            },
+            "risk_flags": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "flags": { "type": "array", "items": { "type": "string" } },
+        "assumptions_to_carry_forward": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["for_skill", "key_inputs"]
+    }
+  },
+  "additionalProperties": true
+}

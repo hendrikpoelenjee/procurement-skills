@@ -1,0 +1,10 @@
+---
+description: Match existing code style; small, focused changes.
+globs: "**/*.{ts,tsx,js,jsx,py,md}"
+alwaysApply: false
+---
+
+# Code changes
+
+- Match naming, imports, and structure already used in the touched files.
+- Keep diffs minimal: solve the stated task only; avoid unrelated cleanup or new docs unless requested.

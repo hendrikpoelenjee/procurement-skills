@@ -1,0 +1,63 @@
+{
+  "status": "completed",
+  "summary": "Sourcing request assessed as strategic. Competitive event workflow recommended with four approval gates. Halted at G1_scope_approval pending user confirmation.",
+  "artifacts": [
+    "artifacts/complexity-assessment.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Spend estimate provided is representative of total in-scope spend",
+    "Switching risk assessed as high based on user description of integration dependencies"
+  ],
+  "data_gaps": [
+    "Incumbent contract expiry date not confirmed — timeline pressure score may be understated",
+    "Regulatory criticality not explicitly assessed — override not applied"
+  ],
+  "risk_flags": [
+    "High criticality combined with limited market alternatives — under-governed workflow would be high risk",
+    "Stakeholder count is high — G1 alignment may require more time than the stated timeline allows"
+  ],
+  "open_questions": [
+    "Does the stated timeline allow for a full competitive event including G1 and G2 gates?",
+    "Are there any regulatory or compliance constraints that would override the standard scoring model?"
+  ],
+  "next_action": "Confirm complexity rating and workflow plan with stakeholders before executing any sourcing stages.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Dimension scores indicate high switching risk, supply risk, and criticality relative to timeline pressure, pushing the total into strategic range and requiring a gated competitive-event path.",
+  "escalation_required": false,
+  "data": {
+    "skill": "p9t-complexity-triage",
+    "complexity": "strategic",
+    "score_total": 16,
+    "dimension_scores": {
+      "spend_scale": 2,
+      "supply_risk": 2,
+      "switching_risk": 3,
+      "specification_complexity": 2,
+      "stakeholder_complexity": 2,
+      "timeline_pressure": 1,
+      "incumbent_entrenchment": 2,
+      "criticality": 2
+    },
+    "recommended_path_types": ["competitive_event"],
+    "required_gates": ["G1_scope_approval", "G2_market_and_longlist_approval", "G3_rfx_and_evaluation_approval", "G4_recommendation_approval"],
+    "category": "orchestration",
+    "wave": 1
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-run-sourcing-workflow",
+    "key_inputs": {
+      "complexity": "strategic",
+      "recommended_path": "competitive_event",
+      "confidence_level": "MEDIUM"
+    },
+    "flags": [
+      "Timeline may be tight for full strategic path",
+      "Regulatory criticality not explicitly confirmed"
+    ],
+    "assumptions_to_carry_forward": [
+      "Switching risk remains high due to integration dependencies"
+    ]
+  }
+}

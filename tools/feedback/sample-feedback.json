@@ -1,0 +1,28 @@
+[
+  {
+    "skill_name": "p9t-market-scan",
+    "project_id": "example-category-001",
+    "run_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+    "timestamp": "2026-05-01T14:30:00Z",
+    "artifact_paths": ["workflow/summary.md", "S2-market-scan/summary.md"],
+    "user_rating": 3,
+    "reviewer_notes": "Landscape felt plausible but concentration risk was downplayed; needs stronger escalation language when only two public players appear.",
+    "validation_result": {
+      "status": "pass",
+      "tool": "validate_skill.py",
+      "details": "Structural validation passed in CI for this skill version."
+    },
+    "confidence_level": "MEDIUM",
+    "assumptions": ["Category boundary as stated by user is commercially meaningful"],
+    "data_gaps": ["Non-public pricing not available", "Recent M&A not reflected in indexed sources"],
+    "risk_flags": ["High market concentration", "Knowledge cutoff may miss new entrants"],
+    "failure_modes_observed": ["Thin evidence presented as balanced landscape"],
+    "suggested_improvements": [
+      "Add explicit gate in SKILL when fewer than N independent sources support concentration claims",
+      "Require effective-as-of date on landscape section"
+    ],
+    "skill_version": "0.2.0",
+    "runtime": "claude-code",
+    "redaction_applied": true
+  }
+]

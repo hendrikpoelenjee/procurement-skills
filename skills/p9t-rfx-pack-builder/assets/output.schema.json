@@ -1,0 +1,101 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required",
+    "handoff_summary"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = technology-neutral, comparable, complete, legal sections present; MEDIUM = structurally sound, refinement needed; LOW = significant gaps, must not issue"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how the pack structure was derived from the brief, commercial model, and evaluation logic."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when requirements appear supplier-specific, legal sections are missing, or the pricing template cannot accommodate the expected commercial model."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "event_type": {
+          "type": "string",
+          "enum": ["RFI", "RFP", "RFQ", "ITT"]
+        },
+        "lots": { "type": "integer" },
+        "sections": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "title": { "type": "string" },
+              "purpose": { "type": "string" },
+              "status": {
+                "type": "string",
+                "enum": ["complete", "draft", "missing"]
+              }
+            }
+          }
+        },
+        "commercial_model": { "type": "string" },
+        "pricing_template_structure": { "type": "string" },
+        "evaluation_logic_reference": { "type": "string" },
+        "legal_review_required": { "type": "boolean" }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "description": "Distilled inputs for p9t-bid-evaluation-framework. Contains only what that skill needs — not the full output.",
+      "properties": {
+        "for_skill": { "type": "string" },
+        "key_inputs": {
+          "type": "object",
+          "properties": {
+            "evaluation_criteria": { "type": "array", "items": { "type": "string" } },
+            "pricing_model": { "type": "string" },
+            "line_items_summary": { "type": "array", "items": { "type": "string" } },
+            "knockout_criteria": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "flags": { "type": "array", "items": { "type": "string" } },
+        "assumptions_to_carry_forward": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["for_skill", "key_inputs"]
+    }
+  },
+  "additionalProperties": true
+}

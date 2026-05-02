@@ -1,0 +1,101 @@
+{
+  "skill": "p9t-output-review",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "review_happy",
+      "type": "happy_path",
+      "title": "Completed sourcing brief — all fields present, consistent, evidenced",
+      "inputs": {
+        "artifact_type": "sourcing_brief",
+        "artifact_ref": "brief-2026-fm-001",
+        "fields_present": ["status", "summary", "assumptions", "data_gaps", "risk_flags", "confidence_level", "reasoning_trace"],
+        "confidence_level": "HIGH",
+        "data_gaps": [],
+        "risk_flags": [],
+        "internal_consistency": true,
+        "upstream_stage": "G1_scope_approval",
+        "review_gate": "G1_scope_approval"
+      },
+      "pass_signals": [
+        "status is completed",
+        "verdict is PASS",
+        "confidence_level is HIGH",
+        "review finds no missing required sections",
+        "review finds no unsupported claims",
+        "no escalation required",
+        "data_gaps is empty"
+      ]
+    },
+    {
+      "id": "review_thin",
+      "type": "thin_data",
+      "title": "Artifact is missing data_gaps and risk_flags — schema fields absent",
+      "inputs": {
+        "artifact_type": "market_scan",
+        "artifact_ref": "scan-2026-fm-001",
+        "fields_present": ["status", "summary", "confidence_level"],
+        "fields_missing": ["data_gaps", "risk_flags", "assumptions", "reasoning_trace"],
+        "confidence_level": "MEDIUM",
+        "review_gate": "G2_market_and_longlist_approval"
+      },
+      "pass_signals": [
+        "verdict is FAIL",
+        "skill identifies all missing required fields: data_gaps, risk_flags, assumptions, reasoning_trace",
+        "status is completed — review ran to conclusion",
+        "handoff is blocked — artifact must be returned to originating skill",
+        "escalation_required is false — reviewer does not escalate, they fail the artifact",
+        "skill does not attempt to infer or fill missing fields in-place"
+      ]
+    },
+    {
+      "id": "review_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Summary states no risks identified but risk_flags array contains 3 entries",
+      "inputs": {
+        "artifact_type": "complexity_assessment",
+        "artifact_ref": "complexity-2026-fm-001",
+        "summary": "No significant risks identified. Routing to moderate workflow recommended.",
+        "risk_flags": [
+          "Single-source supplier identified",
+          "Timeline pressure understated — contract expiry in 3 months",
+          "Regulatory override not applied despite safety-critical classification"
+        ],
+        "confidence_level": "HIGH",
+        "review_gate": "G1_scope_approval"
+      },
+      "pass_signals": [
+        "internal contradiction between summary ('no risks') and risk_flags (3 entries) is explicitly flagged",
+        "verdict is FAIL — artifact cannot proceed with an internal contradiction",
+        "skill does not silently reconcile the contradiction",
+        "finding is documented as: summary content contradicts risk_flags — originating skill must resolve",
+        "escalation_required is true — contradiction has downstream blocking implications"
+      ]
+    },
+    {
+      "id": "review_high_risk",
+      "type": "high_risk",
+      "title": "Artifact is schema-valid but confidence_level is HIGH with 4 non-empty data_gaps",
+      "inputs": {
+        "artifact_type": "award_recommendation",
+        "artifact_ref": "award-2026-fm-001",
+        "confidence_level": "HIGH",
+        "data_gaps": [
+          "Incumbent financial risk assessment not completed",
+          "G3 approval gate not confirmed",
+          "Legal review of contract terms pending",
+          "CFO sign-off not obtained"
+        ],
+        "schema_valid": true,
+        "review_gate": "G4_recommendation_approval"
+      },
+      "pass_signals": [
+        "verdict is FAIL despite schema validity",
+        "risk_flags contains: HIGH confidence declared with 4 non-empty data_gaps — CLAUDE.md §3.1 violation",
+        "escalation_required is true",
+        "skill flags this as the specific anti-pattern prohibited in CLAUDE.md: HIGH confidence with non-empty data_gaps requires explicit justification",
+        "artifact must be returned to originating skill for confidence level correction"
+      ]
+    }
+  ]
+}

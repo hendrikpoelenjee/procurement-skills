@@ -1,0 +1,94 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = market, baseline, and supplier data validated; MEDIUM = some leverage inferred from partial data; LOW = limited intelligence, plan is indicative only"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how market and baseline data were translated into leverage assessment and position setting."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when no real alternatives exist, walk-away triggers supply disruption, leverage inversion is detected, or this is a strategic supplier requiring senior sign-off."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "supplier": { "type": "string" },
+        "objectives": { "type": "array", "items": { "type": "string" } },
+        "positions": {
+          "type": "object",
+          "properties": {
+            "opening": { "type": "string" },
+            "target": { "type": "string" },
+            "walk_away": { "type": "string" }
+          }
+        },
+        "leverage_points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "point": { "type": "string" },
+              "strength": {
+                "type": "string",
+                "enum": ["HIGH", "MEDIUM", "LOW"]
+              }
+            }
+          }
+        },
+        "concession_sequence": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "item": { "type": "string" },
+              "value_to_buyer": { "type": "string" },
+              "cost_to_supplier": { "type": "string" }
+            }
+          }
+        },
+        "batna": { "type": "string" },
+        "relationship_sensitivity": { "type": "string" }
+      }
+    }
+  },
+  "additionalProperties": true
+}

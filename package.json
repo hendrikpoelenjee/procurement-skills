@@ -1,0 +1,14 @@
+{
+  "name": "@tpo/procurement-skills",
+  "version": "1.0.0",
+  "description": "TPO sourcing workflow skills for Claude Code and OpenAI Codex",
+  "keywords": ["claude-code", "codex", "openai", "procurement", "sourcing", "skills", "tpo"],
+  "homepage": "https://theprocurementoffice.com",
+  "license": "Apache-2.0",
+  "scripts": {
+    "postinstall": "sh -c 'if [ -d \"$HOME/.claude\" ]; then bash install.sh; else echo \"[tpo/procurement-skills] Skipping auto-install: ~/.claude not found. Run: bash install.sh (Claude Code) or bash install-codex.sh (Codex).\"; fi'"
+  },
+  "engines": {
+    "node": ">=16"
+  }
+}

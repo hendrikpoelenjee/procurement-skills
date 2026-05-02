@@ -1,0 +1,15 @@
+# TPO Procurement Skills — Path Configuration
+# This file is deployed to ~/.claude/skills/skills-config.yaml by install.sh
+# It is read by p9t-run-sourcing-workflow at Step 0A (session initialisation)
+# Edit this file to change where projects and org-config are stored.
+
+# Root folder where all sourcing projects are created
+project_root: ~/sourcing-projects
+
+# Organisation-level standing config (approval authority, must-haves, preferred models)
+# Schema: standards/org-config-template.md
+org_config_path: ~/sourcing-projects/org-config.md
+
+# Project ID naming convention (slug format: [category-slug]-[sequence])
+# Example: nl-marine-coatings-001
+project_id_pattern: "[category-slug]-[sequence]"

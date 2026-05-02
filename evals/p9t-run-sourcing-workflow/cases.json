@@ -1,0 +1,88 @@
+{
+  "skill": "p9t-run-sourcing-workflow",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "workflow_happy",
+      "type": "happy_path",
+      "title": "Strategic FM retender — clear complexity, named gates, full inputs",
+      "inputs": {
+        "category": "Integrated facilities management — cleaning, security, catering",
+        "estimated_annual_spend": 2400000,
+        "currency": "EUR",
+        "stakeholders": ["CFO", "Head of Facilities", "Legal"],
+        "timeline_weeks": 24,
+        "switching_risk": "moderate",
+        "criticality": "moderate",
+        "prior_sourcing_event": true,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "path_type is competitive_event",
+        "all four approval gates present: G1_scope_approval, G2_market_and_longlist_approval, G3_rfx_and_evaluation_approval, G4_recommendation_approval",
+        "workflow halts after first stage — does not auto-proceed past G1",
+        "selected_skills includes p9t-intake-and-brief as Wave 1 entry point",
+        "confidence_level is HIGH or MEDIUM"
+      ]
+    },
+    {
+      "id": "workflow_thin",
+      "type": "thin_data",
+      "title": "Vague intent with no spend, no category, no timeline",
+      "inputs": {
+        "request": "We need to do some sourcing work on our supplies."
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA or LOW",
+        "data_gaps includes: category not defined, spend not provided, timeline not provided",
+        "no workflow plan issued — skill returns structured gap list instead",
+        "open_questions contains at least: category, estimated spend, timeline"
+      ]
+    },
+    {
+      "id": "workflow_contradictory",
+      "type": "contradictory_inputs",
+      "title": "User requests 6-week fast-track but complexity signals are strategic",
+      "inputs": {
+        "category": "Enterprise ERP system replacement",
+        "estimated_annual_spend": 1800000,
+        "currency": "EUR",
+        "user_request": "We want this done in 6 weeks — simple process, no committees.",
+        "switching_risk": "high — full business process migration required",
+        "criticality": "high",
+        "stakeholder_count": 12
+      },
+      "pass_signals": [
+        "conflict between user's fast-track request and strategic complexity score is explicitly surfaced",
+        "skill does not route to simple path based on user preference alone",
+        "open_questions or risk_flags contains: timeline vs. complexity contradiction",
+        "confidence_level is MEDIUM — contradiction requires user resolution before routing is confirmed",
+        "workflow plan is provisional — halts at G1 for scope confirmation",
+        "skill does not auto-approve fast-track without stakeholder sign-off"
+      ]
+    },
+    {
+      "id": "workflow_high_risk",
+      "type": "high_risk",
+      "title": "Sole-source situation presented as a standard workflow request",
+      "inputs": {
+        "category": "Specialist encryption hardware for national security infrastructure",
+        "estimated_annual_spend": 950000,
+        "currency": "EUR",
+        "known_suppliers": ["SingleSourceCo"],
+        "user_statement": "There is only one approved supplier — we just need to renew. Can you run the workflow?",
+        "regulatory_requirement": "NATO certification required — no alternatives certified"
+      },
+      "pass_signals": [
+        "skill does not route directly to competitive event without first flagging sole-source risk",
+        "risk_flags contains: sole-source situation requires written justification and explicit human approval",
+        "escalation_required is true",
+        "workflow is paused at G1 — does not proceed without scope and justification approval",
+        "open_questions contains: written justification for sole-source confirmed?, approval authority named?",
+        "confidence_level is MEDIUM or LOW — routing is contingent on justification outcome"
+      ]
+    }
+  ]
+}

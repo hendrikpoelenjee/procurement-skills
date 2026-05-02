@@ -1,0 +1,10 @@
+---
+description: Keep edits inside this repo; no git push without explicit user request.
+alwaysApply: true
+---
+
+# Workspace and Git
+
+- Treat the repository root opened in Cursor as the only workspace for file changes. Do not create, edit, or delete files outside this project unless the user explicitly names a path and asks for it.
+- Do not run destructive or publishing Git commands unless the user clearly requests them in the current message. Forbidden without explicit instruction: `git push`, `git push --force`, `git reset --hard`, rebases that rewrite shared history, and GitHub CLI actions that merge, publish releases, or change remotes (`gh pr merge`, `gh repo`, etc.).
+- For normal work, prefer `git status`, `diff`, `add`, `commit` only when the user asked to commit; never push unprompted.

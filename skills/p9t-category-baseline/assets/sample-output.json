@@ -1,0 +1,59 @@
+{
+  "status": "completed",
+  "summary": "Internal category baseline established. Demand profile, current supplier situation, cost drivers, and initial sourcing levers documented.",
+  "artifacts": [
+    "artifacts/p9t-category-baseline.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Spend data provided by the user reflects the current financial year and is complete for in-scope sub-categories",
+    "Current supplier arrangements are as described; no undisclosed side agreements are assumed"
+  ],
+  "data_gaps": [
+    "Tail spend breakdown not available — indirect and maverick spend excluded from baseline",
+    "Contract expiry dates not confirmed for all current suppliers"
+  ],
+  "risk_flags": [
+    "Single-source dependency identified for a critical sub-category — switching risk may be understated",
+    "Cost data is user-supplied and has not been cross-validated against market benchmarks"
+  ],
+  "open_questions": [
+    "Is tail spend in scope for this baseline, or in-contract spend only?",
+    "Are there any undisclosed supplier relationships or legacy commitments that affect the baseline?"
+  ],
+  "next_action": "Validate baseline with category stakeholders before proceeding to market scan or strategy development.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Internal spend, supplier posture, and contract context were consolidated into a baseline and translated into initial cost-driver hypotheses; partial coverage on tail spend and contract metadata reduced confidence.",
+  "escalation_required": false,
+  "source_quality": {
+    "recency": "HIGH",
+    "coverage": "MEDIUM",
+    "bias_risk": "LOW"
+  },
+  "data": {
+    "skill": "p9t-category-baseline",
+    "category": "strategy",
+    "wave": 2
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-supplier-longlist",
+    "key_inputs": {
+      "market_structure_summary": "Mixed supplier base with single-source dependency in one critical sub-category.",
+      "price_benchmarks": {
+        "primary_driver": "Input material volatility"
+      },
+      "must_have_criteria": [
+        "Supply continuity capability",
+        "Relevant contract governance maturity"
+      ]
+    },
+    "flags": [
+      "Tail spend coverage incomplete",
+      "Contract expiry dates partially missing"
+    ],
+    "assumptions_to_carry_forward": [
+      "Current supplier disclosures are accurate for in-scope contracts"
+    ]
+  }
+}

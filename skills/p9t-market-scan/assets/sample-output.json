@@ -1,0 +1,63 @@
+{
+  "status": "completed",
+  "summary": "Market scan for the target category completed. Supplier landscape mapped, cost drivers identified, key risks flagged.",
+  "artifacts": [
+    "artifacts/p9t-market-scan.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Category boundaries as described by the user are commercially meaningful",
+    "Published supplier lists reflect the active market at time of scan"
+  ],
+  "data_gaps": [
+    "Non-public pricing data not available — cost driver analysis is based on public benchmarks only",
+    "Emerging entrants in sub-segments may not be captured in indexed sources"
+  ],
+  "risk_flags": [
+    "Market concentration is high — limited competition may reduce negotiation leverage",
+    "Regulatory environment is evolving — findings may be time-sensitive"
+  ],
+  "open_questions": [
+    "Are there preferred geographic constraints that further narrow the supplier universe?",
+    "Is the category boundary exclusive of adjacent sub-categories?"
+  ],
+  "next_action": "Review market scan with stakeholders and confirm supplier landscape before proceeding to qualification.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Used indexed supplier lists plus industry summaries; cross-checked two independent summaries for overlap; flagged concentration where only two major players surfaced in public indexes.",
+  "escalation_required": false,
+  "source_quality": {
+    "recency": "MEDIUM",
+    "coverage": "MEDIUM",
+    "bias_risk": "LOW"
+  },
+  "data": {
+    "skill": "p9t-market-scan",
+    "category": "research",
+    "wave": 1
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-supplier-longlist",
+    "key_inputs": {
+      "verified_candidates": [
+        {
+          "name": "Supplier Alpha",
+          "country": "NL",
+          "products": [
+            "Category core offering"
+          ]
+        }
+      ],
+      "market_flags": [
+        "High market concentration",
+        "Regulatory change risk"
+      ]
+    },
+    "flags": [
+      "Emerging entrants may be under-represented in indexed sources"
+    ],
+    "assumptions_to_carry_forward": [
+      "User category boundary remains unchanged"
+    ]
+  }
+}

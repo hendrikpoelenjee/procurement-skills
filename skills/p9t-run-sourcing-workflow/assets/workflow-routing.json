@@ -1,0 +1,9 @@
+{
+  "brief_id": "brief-software-renewal-001",
+  "complexity": "strategic",
+  "path_type": "competitive_event",
+  "selected_skills": [
+    "p9t-intake-and-brief"
+  ],
+  "next_required_gate": "G1_scope_approval"
+}

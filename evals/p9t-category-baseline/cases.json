@@ -1,0 +1,98 @@
+{
+  "skill": "p9t-category-baseline",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "baseline_happy",
+      "type": "happy_path",
+      "title": "FM services — 18-month spend history, 2 active suppliers, contracts accessible",
+      "inputs": {
+        "category": "Integrated facilities management",
+        "annual_spend_eur": 2400000,
+        "spend_history_months": 18,
+        "active_suppliers": 2,
+        "contract_details": {
+          "current_supplier": "IncumbentCo",
+          "contract_expiry_months": 9,
+          "auto_renewal_clause": false
+        },
+        "cost_drivers_known": ["labour rates", "energy costs", "site access constraints"],
+        "sourcing_levers_known": ["volume consolidation", "scope standardisation"],
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "baseline covers: spend profile, supplier situation, cost drivers, contract posture, sourcing levers",
+        "source_quality field populated",
+        "data_gaps is empty or contains only non-blocking items",
+        "assumptions does not present inferred costs as confirmed figures",
+        "cost drivers are listed with at least 2 concrete, evidenced drivers"
+      ]
+    },
+    {
+      "id": "baseline_thin",
+      "type": "thin_data",
+      "title": "Category name only — no spend data, no supplier contracts, no demand profile",
+      "inputs": {
+        "category": "facilities management"
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA",
+        "data_gaps includes: spend data not provided, supplier contracts not available, demand profile unknown",
+        "skill does not estimate or fabricate spend or supplier data",
+        "open_questions contains at least: annual spend, active suppliers, contract expiry dates"
+      ]
+    },
+    {
+      "id": "baseline_contradictory",
+      "type": "contradictory_inputs",
+      "title": "User states single supplier but spend data shows four active vendors",
+      "inputs": {
+        "category": "Office printing and document services",
+        "user_statement": "We have one supplier — PrintCo handles everything.",
+        "spend_data": {
+          "PrintCo": 180000,
+          "VendorB": 42000,
+          "VendorC": 28000,
+          "VendorD": 15000
+        },
+        "total_annual_spend_eur": 265000
+      },
+      "pass_signals": [
+        "conflict between user's single-supplier claim and spend data showing 4 active vendors is explicitly surfaced",
+        "skill does not accept user's claim without reconciling it against the spend data",
+        "open_questions contains: tail spend vendors B, C, D — intentional or unconsolidated?",
+        "assumptions contains: user's single-supplier view is inconsistent with spend data — requires confirmation",
+        "confidence_level is MEDIUM while contradiction is unresolved"
+      ]
+    },
+    {
+      "id": "baseline_high_risk",
+      "type": "high_risk",
+      "title": "Baseline reveals hidden incumbent dependency — switching would require 18-month migration",
+      "inputs": {
+        "category": "Enterprise application hosting and managed services",
+        "annual_spend_eur": 1200000,
+        "active_suppliers": 1,
+        "contract_expiry_months": 6,
+        "switching_analysis": {
+          "estimated_migration_duration_months": 18,
+          "data_migration_complexity": "high",
+          "regulatory_re-certification_required": true,
+          "incumbent_proprietary_data_formats": true
+        },
+        "user_expectation": "We plan to retender this at contract expiry."
+      },
+      "pass_signals": [
+        "risk_flags contains: switching timeline (18 months) far exceeds contract expiry window (6 months)",
+        "risk_flags contains: incumbent proprietary data formats create lock-in risk",
+        "escalation_required is true",
+        "skill does not present retendering as straightforward given the switching constraints",
+        "open_questions contains: is extending the current contract the only viable option in the short term?",
+        "confidence_level is HIGH — risk is clearly evidenced, not inferred"
+      ]
+    }
+  ]
+}

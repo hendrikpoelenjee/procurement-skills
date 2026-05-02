@@ -1,0 +1,116 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Workflow Plan",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "brief_id",
+    "complexity_assessment",
+    "path_type",
+    "selected_skills",
+    "stages"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect routing reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong routing or governance failure"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = all inputs provided, routing deterministic; MEDIUM = some inferred, confirm at G1; LOW = critical inputs missing, provisional only"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how the sourcing brief was interpreted, complexity scored, path type selected, and stages sequenced."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when stakeholder conflict is present, complexity cannot be scored reliably, or an approval gate is overdue without explanation."
+    },
+    "session_context": {
+      "type": "object",
+      "properties": {
+        "resume_detected": {
+          "type": "boolean",
+          "description": "True when an existing workflow-plan.json was found and loaded at session start."
+        },
+        "resumed_from_gate": {
+          "type": ["string", "null"],
+          "description": "Gate name if resuming an existing project; null if new project."
+        },
+        "org_config_loaded": {
+          "type": "boolean",
+          "description": "True when ~/sourcing-projects/org-config.md was found and applied."
+        },
+        "org_config_overrides": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "List of defaults applied from org-config (e.g., approval threshold, standing must-haves)."
+        }
+      }
+    },
+    "brief_id": { "type": "string" },
+    "complexity_assessment": {
+      "type": "object",
+      "required": ["complexity", "score_total", "dimension_scores", "overrides"],
+      "properties": {
+        "complexity": { "type": "string", "enum": ["simple", "moderate", "strategic"] },
+        "score_total": { "type": "integer" },
+        "dimension_scores": { "type": "object" },
+        "overrides": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "path_type": { "type": "string" },
+    "selected_skills": { "type": "array", "items": { "type": "string" } },
+    "required_gates": { "type": "array", "items": { "type": "string" } },
+    "gates_in_current_plan": { "type": "array", "items": { "type": "string" } },
+    "next_required_gate": { "type": ["string", "null"] },
+    "approval_state": { "type": "object" },
+    "stopped_after_sequence": { "type": ["integer", "null"] },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["sequence_number", "skill_id", "objective", "required_inputs", "expected_artifacts", "exit_criteria", "depends_on", "owner"],
+        "properties": {
+          "sequence_number": { "type": "integer" },
+          "skill_id": { "type": "string" },
+          "objective": { "type": "string" },
+          "why_selected": { "type": "string" },
+          "required_inputs": { "type": "array", "items": { "type": "string" } },
+          "expected_artifacts": { "type": "array", "items": { "type": "string" } },
+          "exit_criteria": { "type": "string" },
+          "depends_on": { "type": "array", "items": { "type": "string" } },
+          "owner": { "type": "string" },
+          "approval_gate_after": { "type": ["string", "null"] }
+        }
+      }
+    },
+    "artifact_map": { "type": "object" },
+    "gate_definitions": { "type": "object" }
+  }
+}

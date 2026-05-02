@@ -1,0 +1,100 @@
+{
+  "skill": "p9t-bid-evaluation-framework",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "bid_eval_happy",
+      "type": "happy_path",
+      "title": "FM services — agreed criteria, weight allocation confirmed, three evaluators named",
+      "inputs": {
+        "category": "Integrated facilities management",
+        "evaluation_criteria": [
+          {"dimension": "Total cost of ownership", "weight": 35},
+          {"dimension": "Service quality and SLA commitment", "weight": 30},
+          {"dimension": "Technical approach and mobilisation plan", "weight": 20},
+          {"dimension": "Financial stability and risk", "weight": 15}
+        ],
+        "weights_sum": 100,
+        "evaluators": ["Head of Facilities", "Finance Business Partner", "Legal"],
+        "scoring_scale": "1-5 with defined anchors per criterion",
+        "bids_received": false,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH",
+        "weights sum to 100",
+        "scoring anchors defined per criterion — not generic",
+        "no criterion overlaps with another in meaning",
+        "data_gaps is empty",
+        "assumptions is empty or contains only minor inferences",
+        "framework explicitly states it was designed before bids were received"
+      ]
+    },
+    {
+      "id": "bid_eval_thin",
+      "type": "thin_data",
+      "title": "Instruction to build a framework with no criteria, weights, or evaluator context",
+      "inputs": {
+        "instruction": "We want to evaluate suppliers and pick the best one.",
+        "category": "IT services"
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA",
+        "data_gaps includes: evaluation criteria not defined, weights not provided, evaluator context unknown",
+        "skill does not generate default weights without stakeholder validation",
+        "open_questions contains at least: decision priorities, mandatory compliance criteria, evaluator roster"
+      ]
+    },
+    {
+      "id": "bid_eval_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Two stakeholders submit conflicting weight allocations for the same framework",
+      "inputs": {
+        "category": "Facilities management",
+        "weight_allocation_finance_director": {
+          "price": 70,
+          "service_quality": 15,
+          "technical": 10,
+          "risk": 5
+        },
+        "weight_allocation_head_of_facilities": {
+          "price": 20,
+          "service_quality": 50,
+          "technical": 20,
+          "risk": 10
+        },
+        "note": "Both stakeholders claim their allocation reflects agreed priorities."
+      },
+      "pass_signals": [
+        "conflict between Finance Director weights (70% price) and Head of Facilities weights (50% service) is explicitly surfaced",
+        "skill does not average or silently choose one set of weights",
+        "open_questions contains: which weight allocation is authoritative? Who has final sign-off?",
+        "confidence_level is LOW or MEDIUM while stakeholder conflict is unresolved",
+        "no framework issued — skill returns conflict resolution request",
+        "escalation_required is true"
+      ]
+    },
+    {
+      "id": "bid_eval_high_risk",
+      "type": "high_risk",
+      "title": "Evaluation framework requested after bids have already been received and reviewed",
+      "inputs": {
+        "category": "IT managed services",
+        "bids_received": true,
+        "bids_reviewed_by": ["Head of IT", "Procurement Manager"],
+        "preferred_supplier_indicated": "SupplierA was seen as strongest on cost",
+        "instruction": "Now build us the evaluation framework so we can formally score them."
+      },
+      "pass_signals": [
+        "risk_flags contains: framework design requested after bids received — integrity risk",
+        "skill does not produce the framework without explicitly flagging post-bid construction as a structural risk",
+        "escalation_required is true",
+        "open_questions contains: confirm framework was not influenced by knowledge of bids",
+        "confidence_level is LOW — provenance of criteria is unverifiable",
+        "skill recommends documenting criteria provenance before use"
+      ]
+    }
+  ]
+}

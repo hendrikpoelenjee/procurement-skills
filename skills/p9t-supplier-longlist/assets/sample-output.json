@@ -1,0 +1,64 @@
+{
+  "status": "completed",
+  "summary": "Supplier longlist produced with rationale and fit evidence per candidate. Market coverage is moderate — further search recommended for two sub-segments.",
+  "artifacts": [
+    "artifacts/p9t-supplier-longlist.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Must-have criteria as provided in the brief are accurate and complete",
+    "Geographic scope is as stated; offshore or remote-delivery suppliers not included unless explicitly requested"
+  ],
+  "data_gaps": [
+    "One market sub-segment returned no results through available search methods — coverage gap declared",
+    "Capability evidence for two candidates is based on public website content only; no third-party validation"
+  ],
+  "risk_flags": [
+    "Longlist contains only 4 candidates — competition may be insufficient for a full RFx; additional research recommended",
+    "Two candidates' fit is inferred from adjacent category experience, not direct evidence in this category"
+  ],
+  "open_questions": [
+    "Should the coverage gap in the sub-segment be resolved before proceeding to qualification?",
+    "Are the two inferred-fit candidates acceptable for the longlist given the evidence available?"
+  ],
+  "next_action": "Confirm longlist with stakeholders and resolve coverage gap before passing to supplier qualification.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Candidates were screened against must-have criteria and evidence quality; duplicates and weak fits were excluded, while coverage gaps and inferred fits were retained as explicit risk flags.",
+  "escalation_required": false,
+  "source_quality": {
+    "recency": "MEDIUM",
+    "coverage": "MEDIUM",
+    "bias_risk": "LOW"
+  },
+  "data": {
+    "skill": "p9t-supplier-longlist",
+    "category": "research",
+    "wave": 1
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-rfx-pack-builder",
+    "key_inputs": {
+      "shortlisted_suppliers": [
+        {
+          "name": "Supplier Alpha",
+          "contact": "procurement@supplier-alpha.example",
+          "certifications": [
+            "ISO 9001"
+          ],
+          "lead_time": "6-8 weeks"
+        }
+      ],
+      "risk_flags": [
+        "Coverage gap in one sub-segment",
+        "Two candidates included on inferred adjacent-fit basis"
+      ]
+    },
+    "flags": [
+      "Competition depth may be limited"
+    ],
+    "assumptions_to_carry_forward": [
+      "Must-have criteria remain unchanged for qualification and RFx design"
+    ]
+  }
+}

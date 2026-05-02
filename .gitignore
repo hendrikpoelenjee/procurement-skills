@@ -1,0 +1,68 @@
+# =============================================================================
+# TPO Procurement Skills — ignore local / tooling noise for clean packaging
+# (Portable Cursor rules remain under .cursor/rules/ — do not blanket-ignore .cursor/)
+# =============================================================================
+
+# --- OS ---
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# --- Claude / Codex local project overlays (never ship) ---
+.claude/
+
+# --- Editor / IDE (personal workspace prefs) ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# --- Cursor indexer config (personal; rules live under .cursor/rules/) ---
+.cursorignore.txt
+
+# --- Python ---
+__pycache__/
+*.py[cod]
+*$py.class
+.Python
+*.so
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+dist/
+build/
+*.egg-info/
+.eggs/
+
+# --- Node (if scripts add JS tooling later) ---
+node_modules/
+
+# --- Logs & scratch temp ---
+*.log
+*.tmp
+*.temp
+.tmp/
+
+# --- Ad-hoc archives often dropped beside the clone ---
+/*.zip
+/*.tar.gz
+
+# --- Internal / scratch notes (not pack content; use CHANGELOG.md for releases) ---
+MEMORY.md
+revision.md
+
+# --- Legacy / local-only (maintain if still needed privately) ---
+Legal_Licensing_software.md
+_revisions/

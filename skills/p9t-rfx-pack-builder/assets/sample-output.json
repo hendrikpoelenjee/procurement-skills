@@ -1,0 +1,62 @@
+{
+  "status": "completed",
+  "summary": "RFx pack draft completed. Requirements structured, pricing template defined, and supplier instructions written. Legal review required before issue.",
+  "artifacts": [
+    "artifacts/rfx-pack.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Requirements are based on the approved sourcing brief; no additional undisclosed requirements are assumed",
+    "The commercial model is fixed-price with volume tiers — alternative models not accommodated in this draft"
+  ],
+  "data_gaps": [
+    "Mandatory legal and compliance clauses not yet reviewed — placeholders inserted; legal sign-off required",
+    "Evaluation weighting not yet confirmed by stakeholders — pricing template weights are indicative"
+  ],
+  "risk_flags": [
+    "Two requirements use language that closely describes the incumbent's current solution — review for technology-neutrality before issue",
+    "Pricing template does not accommodate subscription-based commercial models — may limit competitive response pool"
+  ],
+  "open_questions": [
+    "Have the requirements been reviewed for incumbent-specific language?",
+    "Has legal confirmed the compliance sections are complete for this category and jurisdiction?"
+  ],
+  "next_action": "Obtain legal review sign-off and stakeholder validation of evaluation weights before issuing to suppliers.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "The RFx pack structure was assembled from approved scope and commercial assumptions, then cross-checked for comparability and neutrality; unresolved legal and weighting gaps prevent issue readiness.",
+  "escalation_required": true,
+  "data": {
+    "skill": "p9t-rfx-pack-builder",
+    "category": "rfx",
+    "wave": 3
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-bid-evaluation-framework",
+    "key_inputs": {
+      "evaluation_criteria": [
+        "Commercial value",
+        "Technical fit",
+        "Service delivery",
+        "Risk and compliance"
+      ],
+      "pricing_model": "Fixed-price with volume tiers",
+      "line_items_summary": [
+        "Base scope",
+        "Optional services",
+        "Volume adjustment bands"
+      ],
+      "knockout_criteria": [
+        "Mandatory compliance clauses accepted",
+        "Supplier eligibility criteria met"
+      ]
+    },
+    "flags": [
+      "Legal review pending",
+      "Potential incumbent-specific wording in two requirements"
+    ],
+    "assumptions_to_carry_forward": [
+      "Commercial model remains fixed-price for this event"
+    ]
+  }
+}

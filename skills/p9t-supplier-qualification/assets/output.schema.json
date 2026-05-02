@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required",
+    "handoff_summary"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = criteria explicit and evidence documented for every decision; MEDIUM = partial evidence, reasoning visible; LOW = criteria vague or evidence missing for a significant portion"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how criteria were applied, evidence was weighed, and borderline cases were handled."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when all candidates fail, only one passes, evidence is contradictory, or a disqualifier is contested."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "shortlisted": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": { "type": "string" },
+              "name": { "type": "string" },
+              "weighted_score": { "type": "number" },
+              "verdict_rationale": { "type": "string" }
+            }
+          }
+        },
+        "disqualified": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": { "type": "string" },
+              "name": { "type": "string" },
+              "disqualification_reason": { "type": "string" },
+              "disqualifying_criterion": { "type": "string" }
+            }
+          }
+        },
+        "borderline": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "candidate_id": { "type": "string" },
+              "name": { "type": "string" },
+              "borderline_reason": { "type": "string" }
+            }
+          }
+        },
+        "concentration_risk_flag": { "type": "boolean" },
+        "criteria_applied": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "criterion": { "type": "string" },
+              "type": {
+                "type": "string",
+                "enum": ["mandatory", "weighted"]
+              },
+              "weight": { "type": "number" }
+            }
+          }
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "description": "Distilled inputs for p9t-award-recommendation. Contains only what that skill needs — not the full output.",
+      "properties": {
+        "for_skill": { "type": "string" },
+        "key_inputs": {
+          "type": "object",
+          "properties": {
+            "qualified_suppliers": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "candidate_id": { "type": "string" },
+                  "name": { "type": "string" },
+                  "weighted_score": { "type": "number" }
+                }
+              }
+            },
+            "disqualifiers_applied": { "type": "array", "items": { "type": "string" } },
+            "concentration_risk_flags": { "type": "array", "items": { "type": "string" } }
+          }
+        },
+        "flags": { "type": "array", "items": { "type": "string" } },
+        "assumptions_to_carry_forward": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["for_skill", "key_inputs"]
+    }
+  },
+  "additionalProperties": true
+}

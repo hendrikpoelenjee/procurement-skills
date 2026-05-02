@@ -1,0 +1,91 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required",
+    "handoff_summary"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = all dimensions scored from provided data; MEDIUM = some estimated; LOW = critical inputs missing"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how dimension scores led to the complexity classification and routing recommendation."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when spend/risk signals are contradictory, category is safety-critical, or stakeholder alignment is uncertain."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "complexity": {
+          "type": "string",
+          "enum": ["simple", "moderate", "strategic"]
+        },
+        "score_total": { "type": "integer" },
+        "dimension_scores": { "type": "object" },
+        "recommended_path_types": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "required_gates": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    },
+    "handoff_summary": {
+      "type": "object",
+      "description": "Distilled inputs for p9t-run-sourcing-workflow. Contains only what that skill needs — not the full output.",
+      "properties": {
+        "for_skill": { "type": "string" },
+        "key_inputs": {
+          "type": "object",
+          "properties": {
+            "complexity": { "type": "string", "enum": ["simple", "moderate", "strategic"] },
+            "recommended_path": { "type": "string" },
+            "confidence_level": { "type": "string" }
+          }
+        },
+        "flags": { "type": "array", "items": { "type": "string" } },
+        "assumptions_to_carry_forward": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["for_skill", "key_inputs"]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,49 @@
+{
+  "status": "completed",
+  "summary": "Review of target artifact completed. One minor gap identified in the evidence section; all required fields are present and schema-compliant. Conditional PASS issued pending resolution of flagged item.",
+  "artifacts": [
+    "artifacts/review-result.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "The reviewed artifact is the most current approved version",
+    "Review criteria are as specified in the workflow gate definition for this stage"
+  ],
+  "data_gaps": [
+    "One evidence citation is missing for a key claim in section 3 — cannot independently verify the assertion"
+  ],
+  "risk_flags": [
+    "Conditional PASS only — unresolved evidence gap must be remediated before artifact proceeds to next stage",
+    "One assumption in the reviewed artifact is stated without a source — downstream skill may propagate it as fact"
+  ],
+  "open_questions": [
+    "Can the originating skill provide the missing evidence citation for section 3?",
+    "Should the unsourced assumption be flagged as a data gap in the downstream handoff?"
+  ],
+  "next_action": "Return to originating skill to provide missing evidence. Re-review before handoff proceeds.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Artifact was checked against required fields, evidence traceability, and internal consistency; one unsupported claim blocked full PASS but did not invalidate the full structure.",
+  "escalation_required": false,
+  "data": {
+    "skill": "p9t-output-review",
+    "category": "governance",
+    "wave": 1
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-run-sourcing-workflow",
+    "key_inputs": {
+      "verdict": "CONDITIONAL_PASS",
+      "blocking_items": [],
+      "advisory_items": [
+        "Missing evidence citation in section 3"
+      ]
+    },
+    "flags": [
+      "Re-review required before handoff"
+    ],
+    "assumptions_to_carry_forward": [
+      "Reviewed artifact version remains unchanged pending remediation"
+    ]
+  }
+}

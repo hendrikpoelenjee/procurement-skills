@@ -1,0 +1,91 @@
+{
+  "skill": "p9t-negotiation-prep",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "neg_happy",
+      "type": "happy_path",
+      "title": "Incumbent FM renewal — market alternatives confirmed, walk-away approved by CFO",
+      "inputs": {
+        "category": "Integrated facilities management",
+        "supplier": "IncumbentCo (anonymised)",
+        "negotiation_objective": "Reduce total contract value by 12% vs. current spend; improve SLA response times",
+        "current_contract_value_eur": 2400000,
+        "market_alternatives": ["Competitor A (qualified)", "Competitor B (qualified)"],
+        "walk_away_position_approved_by": "CFO",
+        "walk_away_threshold_pct": 5,
+        "incumbent_tenure_years": 4,
+        "market_scan_ref": "market-scan-2026-fm-001",
+        "negotiation_stage": "preparation — no offers exchanged yet"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "negotiation plan includes: opening position, walk-away point, at least 2 concession options",
+        "leverage assessment references market alternatives as real, not theoretical",
+        "walk-away positions flagged as confidential — must not be shared externally",
+        "data_gaps is empty or contains only non-blocking items",
+        "assumptions notes that incumbent's actual cost structure is inferred, not confirmed"
+      ]
+    },
+    {
+      "id": "neg_thin",
+      "type": "thin_data",
+      "title": "Supplier name and category only — no market data, no baseline, no objectives",
+      "inputs": {
+        "category": "office cleaning",
+        "supplier": "CleanCo"
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA",
+        "data_gaps includes: negotiation objective not defined, market alternatives not identified, baseline spend not provided",
+        "skill does not generate a negotiation plan without minimum inputs",
+        "open_questions contains at least: negotiation objective, walk-away position, available market alternatives"
+      ]
+    },
+    {
+      "id": "neg_contradictory",
+      "type": "contradictory_inputs",
+      "title": "15% cost reduction target but market scan shows supplier has pricing power",
+      "inputs": {
+        "category": "Specialist industrial gas supply",
+        "supplier": "GasSupplierCo",
+        "negotiation_objective": "Reduce costs by 15%",
+        "market_scan_finding": "GasSupplierCo is one of only two certified suppliers for this gas type in the region; switching would require 6-month recertification",
+        "current_contract_value_eur": 480000,
+        "market_alternatives": ["One alternative, not yet qualified"],
+        "walk_away_approved": false
+      },
+      "pass_signals": [
+        "conflict between 15% reduction target and supplier pricing power is explicitly surfaced",
+        "skill does not present a 15% reduction as achievable without caveating market reality",
+        "risk_flags contains: limited market alternatives reduce realistic leverage",
+        "open_questions contains: is the 15% target realistic given market position? Should walk-away be confirmed before negotiation?",
+        "confidence_level is MEDIUM — plan is conditional on leverage assumptions being validated",
+        "assumptions contains: supplier pricing power based on market scan — must be confirmed with stakeholders"
+      ]
+    },
+    {
+      "id": "neg_high_risk",
+      "type": "high_risk",
+      "title": "Negotiation already in progress with active supplier offers — fresh plan requested",
+      "inputs": {
+        "category": "Facilities management",
+        "supplier": "IncumbentCo",
+        "negotiation_stage": "active — supplier has submitted two commercial offers",
+        "latest_offer_reduction_pct": 8,
+        "instruction": "Generate a fresh negotiation plan with new targets and positions.",
+        "prior_positions_communicated": true
+      },
+      "pass_signals": [
+        "risk_flags contains: negotiation already in progress — generating fresh baseline positions risks contradicting communicated stance",
+        "escalation_required is true",
+        "skill does not generate new baseline targets without flagging the in-flight conflict",
+        "open_questions contains: confirm what positions have been communicated before updating the plan",
+        "skill recommends updating existing plan rather than regenerating from scratch",
+        "confidence_level is LOW — new positions cannot be validated against what has already been communicated"
+      ]
+    }
+  ]
+}

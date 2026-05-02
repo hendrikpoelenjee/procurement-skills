@@ -1,0 +1,89 @@
+{
+  "skill": "p9t-supplier-longlist",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "longlist_happy",
+      "type": "happy_path",
+      "title": "FM services EMEA — defined category, geography, must-haves, target longlist size",
+      "inputs": {
+        "category": "Integrated facilities management — cleaning, security, catering",
+        "geography": ["Netherlands", "Belgium", "Germany"],
+        "must_have_criteria": ["ISO 14001 certification", "minimum 200 FTE dedicated FM staff", "Dutch language service capability"],
+        "nice_to_have_criteria": ["ISO 45001 safety certification", "dedicated client portal"],
+        "target_longlist_size": 15,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "longlist contains at least 8 candidates with individual fit rationale",
+        "each candidate record includes: name, fit evidence, geography coverage, and confidence note",
+        "source_quality populated — method and coverage noted",
+        "data_gaps is empty or contains only non-blocking items",
+        "no candidate presented as confirmed fit without stated evidence"
+      ]
+    },
+    {
+      "id": "longlist_thin",
+      "type": "thin_data",
+      "title": "Category name only — no geography, no criteria, no target size",
+      "inputs": {
+        "category": "cleaning services"
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA or LOW",
+        "data_gaps includes: geography not specified, qualification criteria not defined",
+        "skill does not produce a longlist without at minimum geography and at least one must-have criterion",
+        "open_questions contains at least: geography, must-have criteria, target longlist size"
+      ]
+    },
+    {
+      "id": "longlist_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Must-have criteria include two mutually exclusive certification standards",
+      "inputs": {
+        "category": "Electrical testing and inspection services",
+        "geography": ["United Kingdom"],
+        "must_have_criteria": [
+          "NICEIC certified (UK electrical safety scheme)",
+          "NEN 3140 certified (Dutch electrical safety standard — incompatible scope with NICEIC)"
+        ],
+        "nice_to_have_criteria": ["ISO 9001"],
+        "target_longlist_size": 10
+      },
+      "pass_signals": [
+        "conflict between NICEIC (UK) and NEN 3140 (Dutch) certification requirements is explicitly surfaced",
+        "skill does not apply both criteria simultaneously without flagging the contradiction",
+        "open_questions contains: certification conflict — which standard takes precedence?",
+        "confidence_level is MEDIUM or LOW while contradiction is unresolved",
+        "no final longlist issued until criteria conflict is resolved"
+      ]
+    },
+    {
+      "id": "longlist_high_risk",
+      "type": "high_risk",
+      "title": "Fewer than 3 candidates identified meeting all must-have criteria",
+      "inputs": {
+        "category": "Specialist cryogenic equipment maintenance",
+        "geography": ["Netherlands", "Belgium"],
+        "must_have_criteria": [
+          "ATEX certified for cryogenic environments",
+          "minimum 5 years cryogenic maintenance experience",
+          "24/7 emergency response capability"
+        ],
+        "target_longlist_size": 10,
+        "search_results_note": "Only 2 suppliers identified meeting all three must-haves after exhaustive search"
+      },
+      "pass_signals": [
+        "risk_flags contains: fewer than 3 candidates meet all must-have criteria — concentration risk",
+        "escalation_required is true",
+        "skill does not present a 2-candidate longlist as market-complete without flagging the thin result",
+        "open_questions contains: review must-have criteria for feasibility?, consider geographic expansion?",
+        "confidence_level is LOW or MEDIUM — limited market coverage acknowledged",
+        "data_gaps includes: market alternatives not independently confirmed as exhausted"
+      ]
+    }
+  ]
+}

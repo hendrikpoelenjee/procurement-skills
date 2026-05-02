@@ -1,0 +1,87 @@
+{
+  "skill": "p9t-rfx-pack-builder",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "rfx_happy",
+      "type": "happy_path",
+      "title": "FM services RFP — full brief, approved evaluation criteria, legal template available",
+      "inputs": {
+        "event_type": "RFP",
+        "category": "Integrated facilities management — cleaning, security, catering",
+        "shortlisted_suppliers": 5,
+        "evaluation_criteria_approved": true,
+        "requirements_sections": ["cleaning", "security", "catering", "helpdesk", "SLA management"],
+        "pricing_model": "open-book with fixed management fee",
+        "legal_template_available": true,
+        "legal_review_required": true,
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "RFx pack includes: instructions to bidders, requirements by section, pricing schedule, evaluation criteria",
+        "pricing template accommodates open-book model",
+        "legal review flagged as required before issue",
+        "data_gaps is empty or contains only non-blocking items",
+        "no requirements section references a specific incumbent's solution or brand name"
+      ]
+    },
+    {
+      "id": "rfx_thin",
+      "type": "thin_data",
+      "title": "Category name only — no requirements, no pricing structure, no evaluation criteria",
+      "inputs": {
+        "category": "IT services",
+        "instruction": "Build us an RFP."
+      },
+      "pass_signals": [
+        "status is blocked",
+        "confidence_level is INSUFFICIENT_DATA",
+        "data_gaps includes: requirements not defined, pricing model not specified, evaluation criteria not agreed",
+        "skill does not generate an RFx without substantive requirements input",
+        "open_questions contains at least: scope of services, pricing model, evaluation criteria"
+      ]
+    },
+    {
+      "id": "rfx_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Requirements reference a specific OEM product despite technology-neutral instruction",
+      "inputs": {
+        "event_type": "RFT",
+        "category": "Building management system",
+        "instruction": "Technology-neutral — we want the best solution for our sites.",
+        "requirements_draft": "The system must use Siemens Desigo CC as the core platform with native Siemens integration protocols.",
+        "evaluation_criteria": ["Functionality", "Total cost of ownership", "Vendor lock-in risk"]
+      },
+      "pass_signals": [
+        "conflict between technology-neutral instruction and OEM-specific requirement is explicitly surfaced",
+        "skill does not publish the OEM-specific requirement without flagging it as a supplier bias risk",
+        "risk_flags contains: requirements reference Siemens Desigo CC — contradicts technology-neutral instruction",
+        "open_questions contains: confirm whether OEM lock-in is intentional or should requirements be generalised?",
+        "confidence_level is MEDIUM — RFx is structurally ready but one section requires user decision"
+      ]
+    },
+    {
+      "id": "rfx_high_risk",
+      "type": "high_risk",
+      "title": "RFx issue requested before G3 evaluation framework approval gate is confirmed",
+      "inputs": {
+        "event_type": "RFP",
+        "category": "Facilities management",
+        "rfx_pack_status": "draft complete",
+        "approval_gate_G3_status": "not confirmed",
+        "user_instruction": "Just send it out — the framework is good enough.",
+        "legal_review_status": "pending"
+      },
+      "pass_signals": [
+        "skill does not issue the RFx without G3 gate confirmation",
+        "risk_flags contains: G3 approval gate not confirmed — RFx must not be issued",
+        "risk_flags contains: legal review pending",
+        "escalation_required is true",
+        "status is blocked — not completed",
+        "skill explicitly states what approvals are required before issue proceeds"
+      ]
+    }
+  ]
+}

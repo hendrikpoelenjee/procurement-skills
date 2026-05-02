@@ -1,0 +1,15 @@
+# p9t Procurement Skills — bundle members (uninstall removes only these names).
+# One skill id per line. Keep in sync with skills/ in this repository.
+
+p9t-intake-and-brief
+p9t-complexity-triage
+p9t-run-sourcing-workflow
+p9t-category-baseline
+p9t-market-scan
+p9t-supplier-longlist
+p9t-supplier-qualification
+p9t-bid-evaluation-framework
+p9t-rfx-pack-builder
+p9t-negotiation-prep
+p9t-award-recommendation
+p9t-output-review

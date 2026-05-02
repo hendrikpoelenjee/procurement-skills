@@ -1,0 +1,10 @@
+runtime: codex
+invoke_as: p9t-market-scan
+discovery_mode: explicit_or_auto
+preferred_tools:
+- Read
+- Bash
+notes:
+- Respect project-level AGENTS.md if present
+- Load references only when necessary
+- Keep output aligned to assets/output.schema.json

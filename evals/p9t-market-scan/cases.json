@@ -1,0 +1,82 @@
+{
+  "skill": "p9t-market-scan",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "market_scan_happy",
+      "type": "happy_path",
+      "title": "FM services in EMEA — well-defined category, geography, and time horizon",
+      "inputs": {
+        "category": "Integrated facilities management — cleaning, security, catering",
+        "geography": "Netherlands, Belgium, Germany",
+        "time_horizon": "3-year contract horizon",
+        "constraints": ["ISO 14001 required", "local language service capability"],
+        "known_suppliers": ["ISS", "Sodexo", "Facilicom", "Dussmann"],
+        "sourcing_brief_ref": "brief-2026-fm-001"
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "market structure section identifies at least 3 supplier segments",
+        "cost drivers are listed with at least 2 concrete drivers",
+        "source_quality fields populated (recency, coverage, bias_risk)",
+        "data_gaps is empty or contains only non-blocking items",
+        "assumptions does not include unverified pricing figures presented as facts"
+      ]
+    },
+    {
+      "id": "market_scan_thin",
+      "type": "thin_data",
+      "title": "Category name only — no geography, no time horizon, no constraints",
+      "inputs": {
+        "category": "software"
+      },
+      "pass_signals": [
+        "status is blocked or confidence_level is LOW or INSUFFICIENT_DATA",
+        "data_gaps includes: geography not specified, time horizon not specified",
+        "skill does not proceed to produce a market scan without at minimum geography and category boundary",
+        "open_questions contains at least: geography, sub-category scope, time horizon",
+        "no supplier names presented as validated without evidence"
+      ]
+    },
+    {
+      "id": "market_scan_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Global scope declared but EU-only supplier policy applies",
+      "inputs": {
+        "category": "Cloud infrastructure services",
+        "geography": "Global",
+        "constraints": ["EU-only supplier policy — no data residency outside EU", "Global coverage of delivery locations required"],
+        "time_horizon": "5 years"
+      },
+      "pass_signals": [
+        "conflict between global geography and EU-only supplier policy is explicitly surfaced",
+        "skill does not silently narrow to EU without flagging the contradiction",
+        "open_questions or risk_flags contains: geographic scope vs. supplier policy conflict",
+        "confidence_level is MEDIUM or LOW — not HIGH while contradiction is unresolved",
+        "no recommendation to proceed is issued until conflict is resolved"
+      ]
+    },
+    {
+      "id": "market_scan_high_risk",
+      "type": "high_risk",
+      "title": "Apparent monopoly market with regulatory scrutiny flagged",
+      "inputs": {
+        "category": "Air traffic management software",
+        "geography": "Western Europe",
+        "constraints": ["EASA certification required", "safety-critical supply"],
+        "regulatory_pressure": true,
+        "known_suppliers": ["Thales"],
+        "additional_context": "Only one EASA-certified supplier identified after search. Buyer has indicated this is a renewal, not an open competition."
+      },
+      "pass_signals": [
+        "risk_flags contains: apparent single-source market",
+        "risk_flags contains: safety-critical category requires override to strategic process",
+        "escalation_required is true",
+        "confidence_level is not HIGH — limited competition reduces reliability of market view",
+        "skill does not endorse a no-competition approach without surfacing the risk explicitly",
+        "data_gaps includes: market alternatives not independently verified"
+      ]
+    }
+  ]
+}

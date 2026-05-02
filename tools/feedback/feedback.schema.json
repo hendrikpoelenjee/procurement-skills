@@ -1,0 +1,73 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://theprocurementoffice.com/schemas/p9t-feedback-record.json",
+  "title": "P9T Procurement Skills — single feedback record",
+  "type": "object",
+  "additionalProperties": true,
+  "required": [
+    "skill_name",
+    "project_id",
+    "run_id",
+    "timestamp",
+    "artifact_paths",
+    "validation_result",
+    "confidence_level",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "failure_modes_observed",
+    "suggested_improvements"
+  ],
+  "properties": {
+    "skill_name": {
+      "type": "string",
+      "pattern": "^p9t-[a-z0-9-]+$"
+    },
+    "project_id": { "type": "string", "minLength": 1 },
+    "run_id": { "type": "string", "minLength": 8 },
+    "timestamp": { "type": "string", "minLength": 1 },
+    "artifact_paths": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "user_rating": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 5
+    },
+    "reviewer_notes": { "type": "string" },
+    "validation_result": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": ["status"],
+      "properties": {
+        "status": {
+          "type": "string",
+          "enum": ["pass", "fail", "skipped", "partial"]
+        },
+        "details": { "type": "string" },
+        "tool": { "type": "string" },
+        "command": { "type": "string" }
+      }
+    },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["HIGH", "MEDIUM", "LOW", "INSUFFICIENT_DATA"]
+    },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": { "type": "array", "items": { "type": "string" } },
+    "risk_flags": { "type": "array", "items": { "type": "string" } },
+    "failure_modes_observed": { "type": "array", "items": { "type": "string" } },
+    "suggested_improvements": { "type": "array", "items": { "type": "string" } },
+    "skill_version": { "type": "string" },
+    "runtime": {
+      "type": "string",
+      "description": "e.g. claude-code | codex-cli | other"
+    },
+    "eval_case_id": { "type": "string" },
+    "redaction_applied": {
+      "type": "boolean",
+      "description": "True if commercially sensitive content was redacted before persistence."
+    }
+  }
+}

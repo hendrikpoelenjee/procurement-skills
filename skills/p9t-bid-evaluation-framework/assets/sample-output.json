@@ -1,0 +1,58 @@
+{
+  "status": "completed",
+  "summary": "Weighted bid evaluation framework defined. Criteria, weights, and scoring anchors are set and ready for stakeholder validation.",
+  "artifacts": [
+    "artifacts/p9t-bid-evaluation-framework.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Decision criteria provided reflect actual business priorities",
+    "Framework is designed before bids are received — not reverse-engineered from a preferred outcome",
+    "Commercial and technical dimensions are sufficiently separable to score independently"
+  ],
+  "data_gaps": [
+    "Regulatory or mandatory compliance criteria not explicitly provided — assumed standard for the category",
+    "Stakeholder weight preferences not formally validated — weights are draft pending review"
+  ],
+  "risk_flags": [
+    "Two criteria show potential overlap — verify they can be scored independently before use",
+    "Framework not yet stakeholder-validated — must not be applied to live bids until approved"
+  ],
+  "open_questions": [
+    "Have all key stakeholders reviewed and agreed the weight allocation?",
+    "Are there any policy-mandated criteria that must be included?"
+  ],
+  "next_action": "Circulate framework to stakeholders for weight validation before RFx launch.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Decision priorities were mapped into weighted dimensions, then checked for overlap and anchor clarity; because stakeholder validation is pending, the framework is usable as a draft with explicit caveats.",
+  "escalation_required": true,
+  "data": {
+    "skill": "p9t-bid-evaluation-framework",
+    "category": "selection",
+    "wave": 3
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-award-recommendation",
+    "key_inputs": {
+      "scoring_model": "Weighted scorecard with mandatory and weighted criteria",
+      "weights": {
+        "commercial": 35,
+        "technical": 40,
+        "service": 15,
+        "risk": 10
+      },
+      "knockout_criteria": [
+        "Mandatory compliance",
+        "Minimum financial viability"
+      ],
+      "scores_per_supplier": {}
+    },
+    "flags": [
+      "Weights are draft pending stakeholder sign-off"
+    ],
+    "assumptions_to_carry_forward": [
+      "Criteria are non-overlapping once final wording is approved"
+    ]
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "status": "completed",
+  "summary": "Supplier longlist screened against qualification criteria. Shortlist produced with pass/fail rationale for each candidate.",
+  "artifacts": [
+    "artifacts/p9t-supplier-qualification.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Qualification criteria reflect actual stakeholder priorities",
+    "Longlist is a reasonable starting set and has not been curated to favour a specific outcome",
+    "Evidence provided per candidate is accurate and current"
+  ],
+  "data_gaps": [
+    "Third-party compliance certifications not independently verified",
+    "Financial health data unavailable for two candidates — provisional pass applied pending review"
+  ],
+  "risk_flags": [
+    "Shortlist contains fewer than three candidates — competition may be insufficient",
+    "One borderline candidate retained — decision authority should review rationale before proceeding"
+  ],
+  "open_questions": [
+    "Should the borderline candidate be passed or failed given the available evidence?",
+    "Are there additional disqualifiers not captured in the criteria provided?"
+  ],
+  "next_action": "Confirm shortlist with stakeholders before issuing RFx.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Mandatory disqualifiers were applied first, then weighted criteria were used for pass-through candidates; borderline evidence gaps were surfaced rather than silently converted into pass/fail decisions.",
+  "escalation_required": true,
+  "data": {
+    "skill": "p9t-supplier-qualification",
+    "category": "selection",
+    "wave": 2
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-award-recommendation",
+    "key_inputs": {
+      "qualified_suppliers": [
+        {
+          "candidate_id": "SUP-001",
+          "name": "Supplier Alpha",
+          "weighted_score": 82.5
+        }
+      ],
+      "disqualifiers_applied": [
+        "Missing mandatory compliance documentation"
+      ],
+      "concentration_risk_flags": [
+        "Shortlist contains fewer than three robustly evidenced candidates"
+      ]
+    },
+    "flags": [
+      "Borderline candidate requires decision authority confirmation"
+    ],
+    "assumptions_to_carry_forward": [
+      "Candidate-provided evidence remains valid at time of RFx issue"
+    ]
+  }
+}

@@ -1,0 +1,10 @@
+runtime: claude
+invoke_as: /p9t-category-baseline
+discovery_mode: slash_or_contextual
+preferred_tools:
+- Read
+- Bash
+notes:
+- Keep output aligned to assets/output.schema.json
+- Load references on demand
+- Favor concise, structured artifacts

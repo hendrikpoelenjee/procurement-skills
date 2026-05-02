@@ -1,0 +1,69 @@
+# Rules for tools/quick_validate/quick_validate.py
+# SPDX-License-Identifier: Apache-2.0
+#
+# Mirrors @standards/skill-frontmatter.md for the p9t-* procurement skills pack.
+# Tune allowed_top_level_extra if you introduce new sanctioned frontmatter keys.
+
+skills_root_relative: skills
+skill_folder_pattern: "^p9t-[a-z0-9-]+$"
+name_must_match_folder: true
+
+description_max_chars: 1024
+description_forbid_angle_brackets: true
+compatibility_max_chars: 500
+name_max_chars: 64
+
+# Top-level keys required in SKILL.md YAML frontmatter (see skill-frontmatter.md)
+required_top_level:
+  - name
+  - description
+  - license
+  - spdx-license-identifier
+  - compatibility
+  - allowed-tools
+  - metadata
+
+# Additional top-level keys that are allowed beyond required_top_level
+allowed_top_level_extra:
+  []
+
+# Nested under metadata.* — required for this pack
+required_metadata:
+  - owner
+  - version
+  - status
+  - category
+  - wave
+  - maturity
+  - tags
+  - output_schema
+  - primary_artifacts
+  - review_required
+  - human_approval_required
+  - external_input
+  - claude_md_version
+  - context_budget
+
+# Allowed lifecycle values for metadata.status
+status_enum:
+  - draft
+  - review
+  - production
+  - deprecated
+
+# Optional: enforce licence strings (unset or empty list = skip check)
+allowed_licenses:
+  - Apache-2.0
+
+# metadata.output_schema must equal this unless you override below
+expected_output_schema: assets/output.schema.json
+
+# Nested keys required under metadata.context_budget
+required_context_budget_keys:
+  - skill_md_lines
+  - loaded_references
+  - total_tokens_target
+
+# Tags must include at least these (case-sensitive as in repo)
+minimum_tags_must_include:
+  - sourcing

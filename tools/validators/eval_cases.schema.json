@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://procurement-skills/local/eval-cases.schema.json",
+  "title": "Skill eval cases (cases.json)",
+  "type": "object",
+  "required": ["skill", "version", "cases"],
+  "additionalProperties": false,
+  "properties": {
+    "skill": {
+      "type": "string",
+      "pattern": "^p9t-[a-z0-9-]+$"
+    },
+    "version": {
+      "type": "string",
+      "description": " semver or date string owned by procurement-engineering"
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "type", "title", "inputs"],
+        "properties": {
+          "id": { "type": "string", "minLength": 1 },
+          "type": {
+            "type": "string",
+            "enum": ["happy_path", "thin_data", "contradictory_inputs", "high_risk"]
+          },
+          "title": { "type": "string", "minLength": 3 },
+          "inputs": {
+            "type": "object",
+            "description": "Minimal fixture or inline payload for replay; may reference files under evals/*/fixtures/ when added."
+          },
+          "fixture_path": {
+            "type": "string",
+            "description": "Optional repo-relative path to a richer input artifact."
+          },
+          "pass_signals": {
+            "type": "array",
+            "items": { "type": "string" },
+            "description": "What reviewers or tooling should expect for a PASS on this case."
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "skill": "p9t-intake-and-brief",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "intake_happy",
+      "type": "happy_path",
+      "title": "Well-formed FM request with defined scope, budget, and named stakeholders",
+      "inputs": {
+        "request": "We need to retender our facilities management contract covering cleaning, security, and helpdesk for our 12 sites in the Netherlands. Current contract expires in 9 months. Budget envelope is approximately €2.4M per year. CFO sign-off required before award. Key stakeholder is the Head of Facilities.",
+        "constraints": ["ISO 14001 certification required", "Dutch-language service capability required"],
+        "known_suppliers": ["Sodexo", "ISS", "Facilicom"]
+      },
+      "pass_signals": [
+        "status is completed",
+        "confidence_level is HIGH or MEDIUM",
+        "data_gaps is empty or contains only non-blocking items",
+        "assumptions list contains at least one explicit inference",
+        "brief captures: scope (FM), geography (Netherlands), timeline (9 months), budget (€2.4M/yr), stakeholder (CFO + Head of Facilities)",
+        "open_questions is empty or contains only refinement items — no blocking gaps"
+      ]
+    },
+    {
+      "id": "intake_thin",
+      "type": "thin_data",
+      "title": "Vague request with no scope boundary, no budget, and no named stakeholders",
+      "inputs": {
+        "request": "We need to sort out our IT situation."
+      },
+      "pass_signals": [
+        "status is blocked or confidence_level is LOW or INSUFFICIENT_DATA",
+        "data_gaps is non-empty — must include missing budget, scope boundary, and stakeholder",
+        "open_questions contains at least three clarifying questions",
+        "skill does not draft a brief — it returns a structured gap list instead",
+        "no assumptions presented as confirmed facts"
+      ]
+    },
+    {
+      "id": "intake_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Two-week timeline for a multi-site, multi-lot specification build",
+      "inputs": {
+        "request": "We need a full sourcing brief for a strategic IT infrastructure overhaul covering 8 countries, 3 service towers, and custom SLA design. We need the brief ready in two weeks.",
+        "timeline_constraint": "2 weeks to brief completion",
+        "scope_description": "8-country, 3-tower infrastructure transformation with custom SLA design"
+      },
+      "pass_signals": [
+        "conflict between timeline (2 weeks) and scope complexity (8 countries, 3 towers) is explicitly surfaced",
+        "skill does not silently accept the timeline",
+        "open_questions or risk_flags contains a timeline-vs-scope contradiction entry",
+        "confidence_level is MEDIUM or LOW — not HIGH while contradiction is unresolved",
+        "skill asks user to resolve before structuring the brief"
+      ]
+    },
+    {
+      "id": "intake_high_risk",
+      "type": "high_risk",
+      "title": "Critical infrastructure category with no named approval authority and an implicit incumbent preference",
+      "inputs": {
+        "request": "We need to renew our data centre power supply contract. It is critical — any disruption would be catastrophic. Current supplier has been with us for 12 years and the team prefers to keep them. Budget is open.",
+        "approval_authority": null,
+        "incumbent_preference": "explicit"
+      },
+      "pass_signals": [
+        "risk_flags contains: absence of named approval authority",
+        "risk_flags or assumptions contains: incumbent preference declared before evaluation — potential bias",
+        "escalation_required is true",
+        "skill does not accept incumbent preference as a brief constraint without flagging it",
+        "data_gaps includes: approval authority not identified"
+      ]
+    }
+  ]
+}

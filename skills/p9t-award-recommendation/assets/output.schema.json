@@ -1,0 +1,92 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH", "INSUFFICIENT_DATA"],
+      "description": "Qualitative confidence: HIGH = complete evidence trail, all upstream stages approved; MEDIUM = gaps exist but recommendation is defensible; LOW = key inputs missing or contested; INSUFFICIENT_DATA = essential upstream stages are incomplete and a recommendation cannot be responsibly made"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of how upstream evaluation outputs were synthesised into the recommendation, including trade-offs considered."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when scores are within margin of error, a disqualifying risk emerges post-evaluation, required approvals are missing, or stakeholder alignment is absent."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "recommended_supplier": { "type": "string" },
+        "recommendation_rationale": { "type": "string" },
+        "evaluated_options": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "supplier": { "type": "string" },
+              "score": { "type": "number" },
+              "rank": { "type": "integer" },
+              "notes": { "type": "string" }
+            }
+          }
+        },
+        "alternative_considered": { "type": "string" },
+        "implementation_conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "key_risks": {
+          "type": "array",
+          "items": { "type": "string" }
+        },
+        "approval_requirements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "approver": { "type": "string" },
+              "gate": { "type": "string" },
+              "status": { "type": "string" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

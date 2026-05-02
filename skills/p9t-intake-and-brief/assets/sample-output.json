@@ -1,0 +1,55 @@
+{
+  "status": "completed",
+  "summary": "Sourcing brief structured from the initial request. Scope, objectives, constraints, and open questions documented. Ready for user validation before downstream use.",
+  "artifacts": [
+    "artifacts/sourcing-brief.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "The stated timeline is a hard constraint, not an aspiration",
+    "The three stakeholders named have decision authority; others may exist but were not identified"
+  ],
+  "data_gaps": [
+    "Budget ceiling not confirmed — cost constraint treated as indicative",
+    "Existing contract terms and exit clauses not provided — switching constraints unknown"
+  ],
+  "risk_flags": [
+    "Scope includes two sub-categories with potentially different supplier markets — may require splitting the brief",
+    "Timeline appears shorter than the implied sourcing effort — flag for user validation before proceeding"
+  ],
+  "open_questions": [
+    "Is the budget ceiling firm or indicative?",
+    "Are there any incumbent supplier obligations that constrain the go-to-market approach?"
+  ],
+  "next_action": "Review and confirm the brief with stakeholders before passing to complexity triage.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "The unstructured request was normalised into scope, objectives, and constraints; missing budget and contract context were retained as explicit open questions rather than silently inferred.",
+  "escalation_required": false,
+  "data": {
+    "skill": "p9t-intake-and-brief",
+    "category": "intake",
+    "wave": 1
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-supplier-longlist",
+    "key_inputs": {
+      "category": "Indirect services",
+      "spec_summary": "Consolidated service scope with timeline and governance constraints",
+      "geography": "EU",
+      "spend_estimate": "TBD",
+      "timeline": "Compressed due to target go-live",
+      "constraints": [
+        "Budget ceiling not yet confirmed",
+        "Potential incumbent obligations"
+      ]
+    },
+    "flags": [
+      "Budget uncertainty",
+      "Incumbent constraints not yet validated"
+    ],
+    "assumptions_to_carry_forward": [
+      "Named stakeholders represent current decision authority"
+    ]
+  }
+}

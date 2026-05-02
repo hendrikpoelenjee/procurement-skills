@@ -1,0 +1,92 @@
+{
+  "skill": "p9t-complexity-triage",
+  "version": "1.1.0",
+  "cases": [
+    {
+      "id": "complexity_happy",
+      "type": "happy_path",
+      "title": "Mid-range spend, standard category, 3 active suppliers, 6-month timeline",
+      "inputs": {
+        "category": "Office supplies and consumables",
+        "estimated_annual_spend": 180000,
+        "currency": "EUR",
+        "active_suppliers": 3,
+        "contract_expiry_months": 6,
+        "switching_risk": "low",
+        "criticality": "low",
+        "stakeholder_count": 2,
+        "prior_sourcing_event": true
+      },
+      "pass_signals": [
+        "status is completed",
+        "complexity is simple or moderate — not strategic",
+        "confidence_level is HIGH or MEDIUM",
+        "workflow plan does not prescribe all four approval gates for a commodity category",
+        "reasoning_trace explains the rating in terms of spend scale, switching risk, and criticality",
+        "data_gaps is empty or contains only minor items"
+      ]
+    },
+    {
+      "id": "complexity_thin",
+      "type": "thin_data",
+      "title": "No spend figure, no supplier count, no category context beyond name",
+      "inputs": {
+        "category": "professional services"
+      },
+      "pass_signals": [
+        "status is blocked or confidence_level is LOW or INSUFFICIENT_DATA",
+        "data_gaps includes: estimated spend, supplier count, criticality assessment",
+        "skill does not return a complexity rating without at minimum spend and criticality inputs",
+        "open_questions contains at least: spend estimate, switching risk, criticality",
+        "no routing recommendation issued — returns gap list instead"
+      ]
+    },
+    {
+      "id": "complexity_contradictory",
+      "type": "contradictory_inputs",
+      "title": "Low spend but business-critical with a single-source market",
+      "inputs": {
+        "category": "Specialist calibration chemicals for lab QC process",
+        "estimated_annual_spend": 45000,
+        "currency": "EUR",
+        "active_suppliers": 1,
+        "switching_risk": "extreme — regulatory re-certification required if supplier changes",
+        "criticality": "critical — production halts without supply",
+        "stakeholder_count": 4,
+        "contract_expiry_months": 3
+      },
+      "pass_signals": [
+        "conflict between low spend (€45k) and high criticality/single-source explicitly surfaced",
+        "skill does not default to simple routing based on spend alone",
+        "risk_flags contains: single-source supply with production criticality",
+        "complexity is escalated to strategic or moderate-with-override — not simple",
+        "escalation_required is true",
+        "reasoning_trace explicitly notes the spend vs. criticality override logic"
+      ]
+    },
+    {
+      "id": "complexity_high_risk",
+      "type": "high_risk",
+      "title": "Safety-critical supply where switching requires regulatory re-certification",
+      "inputs": {
+        "category": "Medical device components — Class III implantable",
+        "estimated_annual_spend": 320000,
+        "currency": "EUR",
+        "active_suppliers": 2,
+        "switching_risk": "extreme — regulatory re-certification required (12-18 months)",
+        "criticality": "safety-critical",
+        "regulatory_requirement": "MDR 2017/745 EU compliance",
+        "stakeholder_count": 6,
+        "contract_expiry_months": 4
+      },
+      "pass_signals": [
+        "complexity is strategic regardless of spend",
+        "risk_flags contains: safety-critical category — override rule applied",
+        "risk_flags contains: switching timeline (12-18 months) exceeds contract expiry (4 months)",
+        "escalation_required is true",
+        "all four approval gates recommended",
+        "confidence_level is HIGH — inputs are complete and routing is deterministic from override rule"
+      ]
+    }
+  ]
+}

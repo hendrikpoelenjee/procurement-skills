@@ -1,0 +1,54 @@
+{
+  "status": "completed",
+  "summary": "Negotiation strategy prepared. Target positions, fallback positions, concession boundaries, and leverage points documented. Requires decision authority sign-off before use.",
+  "artifacts": [
+    "artifacts/p9t-negotiation-prep.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "Market scan reflects current competitive alternatives that are realistically accessible within the timeline",
+    "The supplier has not been informed of the buyer's internal walk-away position"
+  ],
+  "data_gaps": [
+    "Supplier's cost structure not available — leverage assumptions on margin pressure are indicative only",
+    "Relationship history and prior negotiation outcomes not provided — dynamic not fully modelled"
+  ],
+  "risk_flags": [
+    "Only one credible market alternative identified — competitive leverage is limited; do not overstate in negotiation",
+    "Walk-away position would trigger a 6-week supply gap — supply risk must be resolved before walk-away is a real option"
+  ],
+  "open_questions": [
+    "Has the walk-away position been confirmed with supply chain and finance as operationally feasible?",
+    "Are there relationship constraints that limit which pressure points can realistically be used?"
+  ],
+  "next_action": "Obtain decision authority sign-off on walk-away and fallback positions before negotiation begins.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "Market alternatives and baseline constraints were converted into leverage points, then mapped to opening/target/fallback positions; limited alternatives and supply-gap risk kept the plan in a controlled posture.",
+  "escalation_required": true,
+  "data": {
+    "skill": "p9t-negotiation-prep",
+    "category": "negotiation",
+    "wave": 2
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-award-recommendation",
+    "key_inputs": {
+      "negotiated_positions": {
+        "opening": "Price reduction request at target level",
+        "fallback": "Staged concession sequence with safeguards"
+      },
+      "batna": "Single credible fallback supplier with lead-time penalty",
+      "key_risks": [
+        "Supply gap risk if walk-away is exercised"
+      ]
+    },
+    "flags": [
+      "Decision authority sign-off pending",
+      "Leverage limited by thin alternative set"
+    ],
+    "assumptions_to_carry_forward": [
+      "Supplier has not been briefed on internal walk-away threshold"
+    ]
+  }
+}

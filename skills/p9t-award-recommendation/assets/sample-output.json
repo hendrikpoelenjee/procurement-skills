@@ -1,0 +1,50 @@
+{
+  "status": "completed",
+  "summary": "Award recommendation prepared. Preferred supplier identified with supporting rationale, trade-off analysis, risks, and implementation conditions.",
+  "artifacts": [
+    "artifacts/p9t-award-recommendation.json",
+    "artifacts/summary.md",
+    "artifacts/open-questions.json"
+  ],
+  "assumptions": [
+    "All upstream evaluation stages are complete and approved",
+    "Commercial view reflects final negotiated position, not indicative pricing",
+    "Approval hierarchy and sign-off requirements are known"
+  ],
+  "data_gaps": [
+    "Implementation risk data not formally captured — risks are inferred from evaluation outputs",
+    "Split-award option not fully modelled — single-award recommendation only"
+  ],
+  "risk_flags": [
+    "Score gap between top two candidates is within margin of error — recommendation requires stakeholder ratification",
+    "Required approvals not yet confirmed — recommendation must not be communicated externally until approvals are in place"
+  ],
+  "open_questions": [
+    "Are all required approvals confirmed before this recommendation is issued?",
+    "Has the no-award option been formally considered and ruled out?"
+  ],
+  "next_action": "Obtain required approvals and confirm implementation conditions before communicating award decision.",
+  "confidence_level": "MEDIUM",
+  "reasoning_trace": "The recommendation synthesises upstream evaluation ranking, commercial position, and implementation constraints; because score separation is narrow and approvals are pending, the outcome is framed as conditionally defensible rather than final.",
+  "escalation_required": true,
+  "data": {
+    "skill": "p9t-award-recommendation",
+    "category": "decision",
+    "wave": 3
+  },
+  "handoff_summary": {
+    "for_skill": "p9t-output-review",
+    "key_inputs": {
+      "recommended_supplier": "Supplier A",
+      "tradeoff_summary": "Supplier A leads on total score but has approval and implementation conditions outstanding."
+    },
+    "flags": [
+      "Required approvals pending",
+      "Top two bids within margin of error"
+    ],
+    "assumptions_to_carry_forward": [
+      "Commercial view reflects final negotiated position",
+      "No disqualifying risk has emerged after final scoring"
+    ]
+  }
+}

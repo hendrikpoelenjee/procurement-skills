@@ -1,0 +1,84 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Portable Skill Result",
+  "type": "object",
+  "required": [
+    "status",
+    "summary",
+    "artifacts",
+    "assumptions",
+    "data_gaps",
+    "risk_flags",
+    "open_questions",
+    "next_action",
+    "confidence_level",
+    "reasoning_trace",
+    "escalation_required"
+  ],
+  "properties": {
+    "status": {
+      "type": "string",
+      "enum": ["completed", "blocked", "failed"]
+    },
+    "summary": { "type": "string" },
+    "artifacts": { "type": "array", "items": { "type": "string" } },
+    "assumptions": { "type": "array", "items": { "type": "string" } },
+    "data_gaps": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Inputs or evidence that are missing and affect output reliability"
+    },
+    "risk_flags": {
+      "type": "array",
+      "items": { "type": "string" },
+      "description": "Conditions that increase the chance of a wrong or misleading output"
+    },
+    "open_questions": { "type": "array", "items": { "type": "string" } },
+    "next_action": { "type": "string" },
+    "confidence_level": {
+      "type": "string",
+      "enum": ["LOW", "MEDIUM", "HIGH"],
+      "description": "Qualitative confidence: HIGH = all sections present, consistent, evidenced, and schema-compliant; MEDIUM = minor gaps, conditional pass; LOW = significant gaps or violations, must not proceed"
+    },
+    "reasoning_trace": {
+      "type": "string",
+      "description": "Brief narrative of what was reviewed, what protocol was applied, and how the verdict was reached."
+    },
+    "escalation_required": {
+      "type": "boolean",
+      "description": "True when a critical field is absent, a finding materially changes the recommended next action, or artifacts contain unresolvable conflicts."
+    },
+    "data": {
+      "type": "object",
+      "properties": {
+        "verdict": {
+          "type": "string",
+          "enum": ["PASS", "CONDITIONAL_PASS", "FAIL"]
+        },
+        "target_skill": { "type": "string" },
+        "gate": { "type": "string" },
+        "findings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "field": { "type": "string" },
+              "issue": { "type": "string" },
+              "severity": {
+                "type": "string",
+                "enum": ["blocking", "advisory"]
+              }
+            }
+          }
+        },
+        "blocking_issues_count": { "type": "integer" },
+        "advisory_issues_count": { "type": "integer" },
+        "conditions": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

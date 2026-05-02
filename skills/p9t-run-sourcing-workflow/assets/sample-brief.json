@@ -1,0 +1,46 @@
+{
+  "brief_id": "brief-software-renewal-001",
+  "business_need": "Renew and possibly rebid strategic SaaS platform used across finance, procurement, and operations.",
+  "category_or_scope": "Enterprise SaaS platform renewal",
+  "objective": "renewal",
+  "spend_estimate": {
+    "amount": 2400000,
+    "currency": "EUR",
+    "period": "annual"
+  },
+  "timeline": {
+    "days_to_decision": 45
+  },
+  "geography": [
+    "Netherlands",
+    "Germany",
+    "Belgium"
+  ],
+  "constraints": [
+    "No service interruption",
+    "Data residency review required"
+  ],
+  "current_state": {
+    "baseline_strength": "medium",
+    "criticality": "critical"
+  },
+  "stakeholders": [
+    "Procurement",
+    "IT",
+    "Finance",
+    "Security",
+    "Operations"
+  ],
+  "stakeholder_count": 5,
+  "supply_risk": "limited",
+  "switching_risk": "high",
+  "specification_complexity": "notable",
+  "incumbent_supplier_state": {
+    "exists": true,
+    "entrenchment": "high"
+  },
+  "competition_desired": true,
+  "approval_state": {
+    "approved_gates": []
+  }
+}
