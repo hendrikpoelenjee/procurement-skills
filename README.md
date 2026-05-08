@@ -1,4 +1,4 @@
-# TPO Procurement Skills
+# Procurement Skills
 
 ### Sourcing workflows for Claude Code and OpenAI Codex
 
